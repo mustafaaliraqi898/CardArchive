@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Printing;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,12 +19,25 @@ public partial class MainWindow : Window
     private long? _editId;
     private bool _dark;
     private List<Person> _all = new();
+    private FontPreferences _fontPreferences = new();
+
+    private sealed class FontPreferences
+    {
+        public string Family { get; set; } = "Segoe UI";
+        public double Size { get; set; } = 14;
+        public bool Bold { get; set; } = true;
+        public string Color { get; set; } = "#203653";
+    }
+
+    private static string FontSettingsPath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "CardArchive", "font-settings.json");
 
     public MainWindow()
     {
         InitializeComponent();
         DataContext = this;
-        try { Database.Initialize(); RefreshRows(); }
+        try { Database.Initialize(); LoadFontPreferences(); ApplyFontPreferences(); RefreshRows(); }
         catch (Exception ex) { MessageBox.Show("تعذر فتح قاعدة البيانات: " + ex.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error); }
         Loaded += (_, _) => NameBox.Focus();
     }
@@ -180,6 +194,137 @@ public partial class MainWindow : Window
             row.Cells.Add(cell);
         }
         group.Rows.Add(row);
+    }
+
+    private void LoadFontPreferences()
+    {
+        try
+        {
+            if (File.Exists(FontSettingsPath))
+                _fontPreferences = JsonSerializer.Deserialize<FontPreferences>(File.ReadAllText(FontSettingsPath)) ?? new FontPreferences();
+        }
+        catch { _fontPreferences = new FontPreferences(); }
+    }
+
+    private void SaveFontPreferences()
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(FontSettingsPath)!);
+        File.WriteAllText(FontSettingsPath, JsonSerializer.Serialize(_fontPreferences));
+    }
+
+    private void ApplyFontPreferences()
+    {
+        var family = new FontFamily(_fontPreferences.Family);
+        var weight = _fontPreferences.Bold ? FontWeights.Bold : FontWeights.Normal;
+        var brush = (Brush)new BrushConverter().ConvertFromString(_fontPreferences.Color)!;
+        foreach (var box in new[] { NameBox, NumberBox, SearchBox })
+        {
+            box.FontFamily = family;
+            box.FontSize = _fontPreferences.Size;
+            box.FontWeight = weight;
+            box.Foreground = brush;
+        }
+        PeopleGrid.FontFamily = family;
+        PeopleGrid.FontSize = _fontPreferences.Size;
+        PeopleGrid.FontWeight = weight;
+        PeopleGrid.Foreground = brush;
+    }
+
+    private void FontSettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Window
+        {
+            Title = "تنسيق الخط",
+            Owner = this,
+            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            Width = 390,
+            Height = 440,
+            ResizeMode = ResizeMode.NoResize,
+            FlowDirection = FlowDirection.RightToLeft,
+            FontFamily = new FontFamily("Segoe UI"),
+            Background = new SolidColorBrush(Color.FromRgb(247, 249, 253))
+        };
+        var panel = new StackPanel { Margin = new Thickness(24) };
+        panel.Children.Add(new TextBlock { Text = "تخصيص شكل النصوص", FontSize = 21, FontWeight = FontWeights.Bold, Margin = new Thickness(0, 0, 0, 18) });
+
+        panel.Children.Add(new TextBlock { Text = "نوع الخط", FontWeight = FontWeights.SemiBold, Margin = new Thickness(0, 0, 0, 6) });
+        var familyBox = new ComboBox { Height = 36, Margin = new Thickness(0, 0, 0, 14), Padding = new Thickness(8) };
+        foreach (var family in new[] { "Segoe UI", "Tahoma", "Arial", "Calibri" }) familyBox.Items.Add(family);
+        familyBox.SelectedItem = _fontPreferences.Family;
+        if (familyBox.SelectedIndex < 0) familyBox.SelectedIndex = 0;
+        panel.Children.Add(familyBox);
+
+        panel.Children.Add(new TextBlock { Text = "حجم الخط", FontWeight = FontWeights.SemiBold, Margin = new Thickness(0, 0, 0, 6) });
+        var sizeBox = new ComboBox { Height = 36, Margin = new Thickness(0, 0, 0, 14), Padding = new Thickness(8), IsEditable = true };
+        foreach (var size in new[] { "11", "12", "13", "14", "15", "16", "18", "20", "22", "24", "26", "28", "32" }) sizeBox.Items.Add(size);
+        sizeBox.Text = _fontPreferences.Size.ToString(CultureInfo.InvariantCulture);
+        panel.Children.Add(sizeBox);
+
+        var boldBox = new CheckBox { Content = "خط عريض (Bold)", IsChecked = _fontPreferences.Bold, FontWeight = FontWeights.SemiBold, Margin = new Thickness(0, 0, 0, 14) };
+        panel.Children.Add(boldBox);
+
+        panel.Children.Add(new TextBlock { Text = "لون الخط", FontWeight = FontWeights.SemiBold, Margin = new Thickness(0, 0, 0, 6) });
+        var colorBox = new ComboBox { Height = 36, Margin = new Thickness(0, 0, 0, 18), Padding = new Thickness(8) };
+        var colors = new (string Name, string Hex)[]
+        {
+            ("أزرق داكن", "#203653"), ("أسود", "#111827"), ("أزرق", "#2563EB"),
+            ("أخضر داكن", "#166534"), ("خمري", "#9F1239"), ("رمادي", "#475569"),
+            ("أبيض", "#FFFFFF")
+        };
+        foreach (var item in colors) colorBox.Items.Add(new ComboBoxItem { Content = item.Name, Tag = item.Hex });
+        colorBox.SelectedItem = colorBox.Items.Cast<ComboBoxItem>().FirstOrDefault(i => Equals(i.Tag, _fontPreferences.Color)) ?? colorBox.Items[0];
+        panel.Children.Add(colorBox);
+
+        var preview = new TextBlock
+        {
+            Text = "معاينة النص العربي — حسن محمد علي ١٢٣٤٥",
+            FontSize = 16, FontWeight = FontWeights.Bold, Foreground = new SolidColorBrush(Color.FromRgb(32, 54, 83)),
+            TextAlignment = TextAlignment.Center, Margin = new Thickness(0, 0, 0, 18)
+        };
+        panel.Children.Add(preview);
+        void UpdatePreview()
+        {
+            if (double.TryParse(sizeBox.Text, NumberStyles.Number, CultureInfo.InvariantCulture, out var s) && s >= 9 && s <= 36)
+                preview.FontSize = s;
+            preview.FontFamily = new FontFamily(familyBox.SelectedItem?.ToString() ?? "Segoe UI");
+            preview.FontWeight = boldBox.IsChecked == true ? FontWeights.Bold : FontWeights.Normal;
+            if (colorBox.SelectedItem is ComboBoxItem item && item.Tag is string hex)
+                preview.Foreground = (Brush)new BrushConverter().ConvertFromString(hex)!;
+        }
+        familyBox.SelectionChanged += (_, _) => UpdatePreview();
+        sizeBox.SelectionChanged += (_, _) => UpdatePreview();
+        sizeBox.LostFocus += (_, _) => UpdatePreview();
+        boldBox.Checked += (_, _) => UpdatePreview();
+        boldBox.Unchecked += (_, _) => UpdatePreview();
+        colorBox.SelectionChanged += (_, _) => UpdatePreview();
+        UpdatePreview();
+
+        var buttons = new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Left };
+        var apply = new Button { Content = "تطبيق", MinWidth = 105, Margin = new Thickness(0, 0, 8, 0) };
+        var cancel = new Button { Content = "إلغاء", MinWidth = 90, Background = new SolidColorBrush(Color.FromRgb(229, 235, 245)), Foreground = new SolidColorBrush(Color.FromRgb(41, 69, 104)) };
+        apply.Click += (_, _) =>
+        {
+            if (!double.TryParse(sizeBox.Text, NumberStyles.Number, CultureInfo.InvariantCulture, out var size) || size < 9 || size > 36)
+            {
+                MessageBox.Show(dialog, "اختر حجماً بين 9 و36.", "حجم غير صالح", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            var selectedColor = (ComboBoxItem)colorBox.SelectedItem;
+            _fontPreferences = new FontPreferences
+            {
+                Family = familyBox.SelectedItem?.ToString() ?? "Segoe UI",
+                Size = size,
+                Bold = boldBox.IsChecked == true,
+                Color = selectedColor.Tag?.ToString() ?? "#203653"
+            };
+            try { SaveFontPreferences(); ApplyFontPreferences(); dialog.DialogResult = true; dialog.Close(); }
+            catch (Exception ex) { MessageBox.Show(dialog, "تعذر حفظ إعدادات الخط: " + ex.Message); }
+        };
+        cancel.Click += (_, _) => dialog.Close();
+        buttons.Children.Add(apply); buttons.Children.Add(cancel);
+        panel.Children.Add(buttons);
+        dialog.Content = panel;
+        dialog.ShowDialog();
     }
 
     private void ThemeButton_Click(object sender, RoutedEventArgs e)
