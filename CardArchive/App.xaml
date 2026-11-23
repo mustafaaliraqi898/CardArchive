@@ -25,13 +25,13 @@
       <Setter Property="Background" Value="#FFF0F0"/><Setter Property="Foreground" Value="#C03945"/><Setter Property="Padding" Value="11,7"/>
     </Style>
     <Style TargetType="TextBox">
-      <Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/><Setter Property="FontWeight" Value="SemiBold"/>
       <Setter Property="Padding" Value="12,10"/><Setter Property="BorderBrush" Value="#DCE3ED"/>
       <Setter Property="BorderThickness" Value="1"/><Setter Property="Background" Value="#FBFCFE"/>
       <Setter Property="Foreground" Value="#17243A"/><Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     <Style TargetType="DataGrid">
-      <Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/>
+      <Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/><Setter Property="FontWeight" Value="SemiBold"/>
       <Setter Property="Foreground" Value="#24334A"/><Setter Property="Background" Value="White"/>
       <Setter Property="BorderThickness" Value="0"/><Setter Property="RowHeaderWidth" Value="0"/>
       <Setter Property="GridLinesVisibility" Value="Horizontal"/><Setter Property="HorizontalGridLinesBrush" Value="#EEF1F6"/>
