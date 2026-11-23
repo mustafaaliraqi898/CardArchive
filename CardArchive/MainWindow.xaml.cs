@@ -330,22 +330,23 @@ public partial class MainWindow : Window
     private void ThemeButton_Click(object sender, RoutedEventArgs e)
     {
         _dark = !_dark;
-        var page = (SolidColorBrush)FindResource("PageBg");
-        var surface = (SolidColorBrush)FindResource("Surface");
-        var text = (SolidColorBrush)FindResource("TextMain");
-        var muted = (SolidColorBrush)FindResource("TextMuted");
-        var border = (SolidColorBrush)FindResource("BorderLine");
+        var resources = Application.Current.Resources;
         if (_dark)
         {
-            page.Color = Color.FromRgb(17, 26, 43); surface.Color = Color.FromRgb(29, 42, 63);
-            text.Color = Color.FromRgb(235, 241, 250); muted.Color = Color.FromRgb(160, 174, 196);
-            border.Color = Color.FromRgb(51, 67, 91); ThemeButton.Content = "☀  الوضع النهاري";
+            resources["PageBg"] = new SolidColorBrush(Color.FromRgb(17, 26, 43));
+            resources["Surface"] = new SolidColorBrush(Color.FromRgb(29, 42, 63));
+            resources["TextMain"] = new SolidColorBrush(Color.FromRgb(235, 241, 250));
+            resources["TextMuted"] = new SolidColorBrush(Color.FromRgb(160, 174, 196));
+            resources["BorderLine"] = new SolidColorBrush(Color.FromRgb(51, 67, 91));
+            ThemeButton.Content = "☀  الوضع النهاري";
         }
         else
         {
-            page.Color = Color.FromRgb(243, 246, 251); surface.Color = Colors.White;
-            text.Color = Color.FromRgb(23, 36, 58); muted.Color = Color.FromRgb(116, 129, 152);
-            border.Color = Color.FromRgb(229, 234, 242); ThemeButton.Content = "☾  الوضع الليلي";
+            resources["PageBg"] = new SolidColorBrush(Color.FromRgb(243, 246, 251));
+            resources["Surface"] = new SolidColorBrush(Colors.White);
+            resources["TextMain"] = new SolidColorBrush(Color.FromRgb(23, 36, 58));
+            resources["TextMuted"] = new SolidColorBrush(Color.FromRgb(116, 129, 152));
+            resources["BorderLine"] = new SolidColorBrush(Color.FromRgb(229, 234, 242));
+            ThemeButton.Content = "☾  الوضع الليلي";
         }
-    }
-}
+    }}
