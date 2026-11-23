@@ -3,7 +3,7 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  Title="فهرس البطاقات الوطنية" Icon="Assets/CardArchive.ico" Width="1280" Height="820" MinWidth="1050" MinHeight="700"
  WindowStartupLocation="CenterScreen" FlowDirection="RightToLeft"
- Background="{StaticResource PageBg}" FontFamily="Segoe UI" Foreground="{StaticResource TextMain}">
+ Background="{DynamicResource PageBg}" FontFamily="Segoe UI" Foreground="{DynamicResource TextMain}">
  <Grid>
   <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="238"/></Grid.ColumnDefinitions>
   <Grid Grid.Column="0" Margin="34,28,30,26">
@@ -11,9 +11,9 @@
    <Grid Grid.Row="0" Margin="0,0,0,22">
     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
     <StackPanel Grid.Row="0">
-     <TextBlock Text="إدارة السجلات" FontSize="13" Foreground="{StaticResource TextMuted}" Margin="0,0,0,5"/>
+     <TextBlock Text="إدارة السجلات" FontSize="13" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,5"/>
      <TextBlock Text="فهرس البطاقات الوطنية" FontSize="28" FontWeight="Bold"/>
-     <TextBlock Text="إدارة بيانات أصحاب البطاقات والبحث عنها بسهولة" FontSize="13" Foreground="{StaticResource TextMuted}" Margin="0,7,0,0"/>
+     <TextBlock Text="إدارة بيانات أصحاب البطاقات والبحث عنها بسهولة" FontSize="13" Foreground="{DynamicResource TextMuted}" Margin="0,7,0,0"/>
     </StackPanel>
     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,14,0,0">
      <Button Content="Aa  تنسيق الخط" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="FontSettingsButton_Click"/>
@@ -31,20 +31,20 @@
       </StackPanel>
      </StackPanel>
     </Border>
-    <Border Grid.Column="0" Background="{StaticResource Surface}" CornerRadius="15" Padding="18" BorderBrush="{StaticResource BorderLine}" BorderThickness="1">
+    <Border Grid.Column="0" Background="{DynamicResource Surface}" CornerRadius="15" Padding="18" BorderBrush="{DynamicResource BorderLine}" BorderThickness="1">
      <StackPanel>
       <TextBlock Text="معلومة" FontWeight="SemiBold" FontSize="13"/>
-      <TextBlock Text="تُحفظ البيانات تلقائياً في جهازك، ولا تحتاج إلى اتصال بالإنترنت." Foreground="{StaticResource TextMuted}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+      <TextBlock Text="تُحفظ البيانات تلقائياً في جهازك، ولا تحتاج إلى اتصال بالإنترنت." Foreground="{DynamicResource TextMuted}" TextWrapping="Wrap" Margin="0,8,0,0"/>
      </StackPanel>
     </Border>
    </Grid>
-   <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#C9D9F5" BorderThickness="1.5" CornerRadius="17" Padding="22" Margin="0,0,0,18">
+   <Border Grid.Row="2" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource BorderLine}" BorderThickness="1.5" CornerRadius="17" Padding="22" Margin="0,0,0,18">
     <Border.Effect><DropShadowEffect BlurRadius="16" ShadowDepth="2" Opacity="0.07" Color="#42618C"/></Border.Effect>
     <Grid>
      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <StackPanel Grid.Row="0" Margin="0,0,0,16">
-      <TextBlock x:Name="FormTitle" Text="إضافة بطاقة جديدة" FontSize="19" FontWeight="Bold" Foreground="#1D3B66"/>
-      <TextBlock Text="أدخل اسم صاحب البطاقة ورقمها الوطنية، أو فعّل الترقيم التلقائي" FontSize="12" Foreground="{StaticResource TextMuted}" Margin="0,4,0,0"/>
+      <TextBlock x:Name="FormTitle" Text="إضافة بطاقة جديدة" FontSize="19" FontWeight="Bold" Foreground="{DynamicResource TextMain}"/>
+      <TextBlock Text="أدخل اسم صاحب البطاقة ورقمها الوطنية، أو فعّل الترقيم التلقائي" FontSize="12" Foreground="{DynamicResource TextMuted}" Margin="0,4,0,0"/>
      </StackPanel>
      <Grid Grid.Row="1">
       <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -65,14 +65,14 @@
      </Grid>
     </Grid>
    </Border>
-   <Border Grid.Row="3" Background="{StaticResource Surface}" BorderBrush="{StaticResource BorderLine}" BorderThickness="1" CornerRadius="15" Padding="18">
+   <Border Grid.Row="3" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource BorderLine}" BorderThickness="1" CornerRadius="15" Padding="18">
     <Grid>
      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
      <Grid Grid.Row="0" Margin="0,0,0,15">
       <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
       <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,14">
        <TextBlock Text="قائمة البطاقات" FontSize="19" FontWeight="Bold" HorizontalAlignment="Center"/>
-       <TextBlock Text="ابحث عن صاحب البطاقة بالاسم أو الرقم الوطني" Foreground="{StaticResource TextMuted}" FontSize="12" Margin="0,4,0,0" HorizontalAlignment="Center"/>
+       <TextBlock Text="ابحث عن صاحب البطاقة بالاسم أو الرقم الوطني" Foreground="{DynamicResource TextMuted}" FontSize="12" Margin="0,4,0,0" HorizontalAlignment="Center"/>
       </StackPanel>
       <Border Grid.Row="1" Width="560" MaxWidth="560" HorizontalAlignment="Center" Background="#F3F7FF" BorderBrush="#C9D9F5" BorderThickness="1" CornerRadius="12" Padding="4">
        <DockPanel>
@@ -88,12 +88,12 @@
        <Button Content="نسخة احتياطية" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Click="BackupButton_Click"/>
        <Button Content="طباعة القائمة" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0" Click="PrintButton_Click"/>
       </StackPanel>
-      <TextBlock x:Name="ResultsText" Text="0 نتيجة" VerticalAlignment="Center" Foreground="{StaticResource TextMuted}" FontSize="12"/>
+      <TextBlock x:Name="ResultsText" Text="0 نتيجة" VerticalAlignment="Center" Foreground="{DynamicResource TextMuted}" FontSize="12"/>
      </DockPanel>
      <DataGrid x:Name="PeopleGrid" Grid.Row="2" ItemsSource="{Binding People}" AlternationCount="2">
       <DataGrid.Columns>
-       <DataGridTextColumn Header="اسم صاحب البطاقة" Binding="{Binding FullName}" Width="*"/>
-       <DataGridTextColumn Header="رقم البطاقة الوطنية" Binding="{Binding CardNumber}" Width="220"/>
+       <DataGridTextColumn Header="اسم صاحب البطاقة" Binding="{Binding FullName}" Width="*"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="TextAlignment" Value="Right"/><Setter Property="Padding" Value="0,4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
+       <DataGridTextColumn Header="رقم البطاقة الوطنية" Binding="{Binding CardNumber}" Width="220"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="TextAlignment" Value="Center"/><Setter Property="Padding" Value="0,4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
        <DataGridTemplateColumn Header="الإجراءات" Width="190">
         <DataGridTemplateColumn.CellTemplate><DataTemplate>
          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -106,7 +106,7 @@
      </DataGrid>
     </Grid>
    </Border>
-   <TextBlock Grid.Row="4" Text="CardArchive  •  يعمل محلياً ويحافظ على خصوصية بياناتك" Foreground="{StaticResource TextMuted}" FontSize="11" Margin="4,13,4,0"/>
+   <TextBlock Grid.Row="4" Text="CardArchive  •  يعمل محلياً ويحافظ على خصوصية بياناتك" Foreground="{DynamicResource TextMuted}" FontSize="11" Margin="4,13,4,0"/>
   </Grid>
   <Border Grid.Column="1" Background="#172B49">
    <Grid Margin="22,28">
