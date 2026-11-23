@@ -8,13 +8,14 @@
   <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="238"/></Grid.ColumnDefinitions>
   <Grid Grid.Column="0" Margin="34,28,30,26">
    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-   <Grid Grid.Row="0" Margin="0,0,0,25">
-    <StackPanel>
+   <Grid Grid.Row="0" Margin="0,0,0,22">
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <StackPanel Grid.Row="0">
      <TextBlock Text="إدارة السجلات" FontSize="13" Foreground="{StaticResource TextMuted}" Margin="0,0,0,5"/>
      <TextBlock Text="فهرس البطاقات الوطنية" FontSize="28" FontWeight="Bold"/>
      <TextBlock Text="إدارة بيانات أصحاب البطاقات والبحث عنها بسهولة" FontSize="13" Foreground="{StaticResource TextMuted}" Margin="0,7,0,0"/>
     </StackPanel>
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,14,0,0">
      <Button Content="Aa  تنسيق الخط" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="FontSettingsButton_Click"/>
      <Button x:Name="ThemeButton" Content="☾  الوضع الليلي" Style="{StaticResource SecondaryButton}" Click="ThemeButton_Click"/>
     </StackPanel>
@@ -52,10 +53,11 @@
        <TextBox x:Name="NameBox" Height="44" FlowDirection="RightToLeft" KeyDown="Input_KeyDown"/>
       </StackPanel>
       <StackPanel Grid.Column="1" Margin="0,0,12,0">
-       <DockPanel Margin="0,0,0,7">
-        <CheckBox x:Name="AutoNumberCheck" Content="ترقيم تلقائي" IsChecked="False" VerticalAlignment="Center" Foreground="#2563EB" FontWeight="SemiBold" Checked="AutoNumberCheck_Changed" Unchecked="AutoNumberCheck_Changed"/>
-        <TextBlock Text="رقم البطاقة الوطنية" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
-       </DockPanel>
+       <Grid Margin="0,0,0,7">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="رقم البطاقة الوطنية" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+        <CheckBox Grid.Column="1" x:Name="AutoNumberCheck" Content="ترقيم تلقائي" IsChecked="False" VerticalAlignment="Center" Foreground="#2563EB" FontWeight="SemiBold" Checked="AutoNumberCheck_Changed" Unchecked="AutoNumberCheck_Changed"/>
+       </Grid>
        <TextBox x:Name="NumberBox" Height="44" FlowDirection="RightToLeft" KeyDown="Input_KeyDown"/>
       </StackPanel>
       <Button x:Name="SaveButton" Grid.Column="2" Content="حفظ البيانات" Height="44" MinWidth="120" VerticalAlignment="Bottom" Margin="0,0,8,0" Click="SaveButton_Click"/>
