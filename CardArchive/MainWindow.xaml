@@ -92,7 +92,7 @@
      </DockPanel>
      <DataGrid x:Name="PeopleGrid" Grid.Row="2" ItemsSource="{Binding People}" AlternationCount="2">
       <DataGrid.Columns>
-       <DataGridTextColumn Header="اسم صاحب البطاقة" Binding="{Binding FullName}" Width="*"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="TextAlignment" Value="Right"/><Setter Property="Padding" Value="0,4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
+       <DataGridTextColumn Header="اسم صاحب البطاقة" Binding="{Binding FullName}" Width="*"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="HorizontalAlignment" Value="Stretch"/><Setter Property="TextAlignment" Value="Right"/><Setter Property="FlowDirection" Value="RightToLeft"/><Setter Property="Padding" Value="0,4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
        <DataGridTextColumn Header="رقم البطاقة الوطنية" Binding="{Binding CardNumber}" Width="220"><DataGridTextColumn.ElementStyle><Style TargetType="TextBlock"><Setter Property="VerticalAlignment" Value="Center"/><Setter Property="TextAlignment" Value="Center"/><Setter Property="Padding" Value="0,4"/></Style></DataGridTextColumn.ElementStyle></DataGridTextColumn>
        <DataGridTemplateColumn Header="الإجراءات" Width="190">
         <DataGridTemplateColumn.CellTemplate><DataTemplate>
