@@ -39,5 +39,4 @@ $stream = [System.IO.File]::Create("CardArchive/Assets/CardArchive.ico")
 $icon.Save($stream)
 $stream.Dispose()
 $icon.Dispose()
-[CardArchive.NativeMethods] | Out-Null
 $g.Dispose(); $bmp.Dispose(); $path.Dispose(); $bg.Dispose(); $blue.Dispose(); $line.Dispose(); $drawer.Dispose(); $pen.Dispose()
