@@ -34,12 +34,13 @@
      </StackPanel>
     </Border>
    </Grid>
-   <Border Grid.Row="2" Background="{StaticResource Surface}" BorderBrush="{StaticResource BorderLine}" BorderThickness="1" CornerRadius="15" Padding="20" Margin="0,0,0,18">
+   <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#C9D9F5" BorderThickness="1.5" CornerRadius="17" Padding="22" Margin="0,0,0,18">
+    <Border.Effect><DropShadowEffect BlurRadius="16" ShadowDepth="2" Opacity="0.07" Color="#42618C"/></Border.Effect>
     <Grid>
      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <StackPanel Grid.Row="0" Margin="0,0,0,16">
-      <TextBlock x:Name="FormTitle" Text="إضافة بطاقة جديدة" FontSize="17" FontWeight="Bold"/>
-      <TextBlock Text="أدخل اسم صاحب البطاقة ورقمها الوطنية" FontSize="12" Foreground="{StaticResource TextMuted}" Margin="0,4,0,0"/>
+      <TextBlock x:Name="FormTitle" Text="إضافة بطاقة جديدة" FontSize="19" FontWeight="Bold" Foreground="#1D3B66"/>
+      <TextBlock Text="أدخل اسم صاحب البطاقة ورقمها الوطنية، أو فعّل الترقيم التلقائي" FontSize="12" Foreground="{StaticResource TextMuted}" Margin="0,4,0,0"/>
      </StackPanel>
      <Grid Grid.Row="1">
       <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -48,7 +49,10 @@
        <TextBox x:Name="NameBox" Height="44" FlowDirection="RightToLeft" KeyDown="Input_KeyDown"/>
       </StackPanel>
       <StackPanel Grid.Column="1" Margin="0,0,12,0">
-       <TextBlock Text="رقم البطاقة الوطنية" FontSize="12" FontWeight="SemiBold" Margin="0,0,0,7"/>
+       <DockPanel Margin="0,0,0,7">
+        <CheckBox x:Name="AutoNumberCheck" Content="ترقيم تلقائي" IsChecked="False" VerticalAlignment="Center" Foreground="#2563EB" FontWeight="SemiBold" Checked="AutoNumberCheck_Changed" Unchecked="AutoNumberCheck_Changed"/>
+        <TextBlock Text="رقم البطاقة الوطنية" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+       </DockPanel>
        <TextBox x:Name="NumberBox" Height="44" FlowDirection="RightToLeft" KeyDown="Input_KeyDown"/>
       </StackPanel>
       <Button x:Name="SaveButton" Grid.Column="2" Content="حفظ البيانات" Height="44" MinWidth="120" VerticalAlignment="Bottom" Margin="0,0,8,0" Click="SaveButton_Click"/>
@@ -60,11 +64,17 @@
     <Grid>
      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
      <Grid Grid.Row="0" Margin="0,0,0,15">
-      <StackPanel>
-       <TextBlock Text="قائمة البطاقات" FontSize="18" FontWeight="Bold"/>
-       <TextBlock Text="يمكنك البحث بالاسم أو رقم البطاقة" Foreground="{StaticResource TextMuted}" FontSize="12" Margin="0,4,0,0"/>
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,14">
+       <TextBlock Text="قائمة البطاقات" FontSize="19" FontWeight="Bold" HorizontalAlignment="Center"/>
+       <TextBlock Text="ابحث عن صاحب البطاقة بالاسم أو الرقم الوطني" Foreground="{StaticResource TextMuted}" FontSize="12" Margin="0,4,0,0" HorizontalAlignment="Center"/>
       </StackPanel>
-      <TextBox x:Name="SearchBox" Width="310" Height="42" HorizontalAlignment="Left" VerticalAlignment="Center" ToolTip="ابحث بالاسم أو رقم البطاقة" TextChanged="SearchBox_TextChanged"/>
+      <Border Grid.Row="1" Width="560" MaxWidth="560" HorizontalAlignment="Center" Background="#F3F7FF" BorderBrush="#C9D9F5" BorderThickness="1" CornerRadius="12" Padding="4">
+       <DockPanel>
+        <TextBlock Text="⌕" FontSize="25" Foreground="#3972C8" VerticalAlignment="Center" Margin="10,0,7,0"/>
+        <TextBox x:Name="SearchBox" Height="44" BorderThickness="0" Background="Transparent" FontSize="15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="ابحث بالاسم أو رقم البطاقة" TextChanged="SearchBox_TextChanged"/>
+       </DockPanel>
+      </Border>
      </Grid>
      <DockPanel Grid.Row="1" Margin="0,0,0,12">
       <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
