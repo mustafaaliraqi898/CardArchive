@@ -45,6 +45,8 @@ public partial class MainWindow : Window
     {
         var name = NameBox.Text.Trim();
         var number = NumberBox.Text.Trim();
+        if (AutoNumberCheck.IsChecked == true && !_editId.HasValue)
+            number = Database.NextAvailableSequence().ToString(CultureInfo.InvariantCulture);
         if (name.Length == 0 || number.Length == 0)
         {
             MessageBox.Show("يرجى إدخال اسم صاحب البطاقة ورقم البطاقة.", "بيانات ناقصة", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -71,7 +73,7 @@ public partial class MainWindow : Window
     {
         if (e.Key != Key.Enter) return;
         e.Handled = true;
-        if (sender == NameBox) NumberBox.Focus();
+        if (sender == NameBox && AutoNumberCheck.IsChecked != true) NumberBox.Focus();
         else SaveButton_Click(sender, new RoutedEventArgs());
     }
 
@@ -80,6 +82,17 @@ public partial class MainWindow : Window
     {
         _editId = null; NameBox.Clear(); NumberBox.Clear();
         FormTitle.Text = "إضافة بطاقة جديدة"; SaveButton.Content = "حفظ البيانات";
+        AutoNumberCheck.IsEnabled = true;
+        NumberBox.IsReadOnly = AutoNumberCheck.IsChecked == true;
+        NumberBox.Text = AutoNumberCheck.IsChecked == true ? Database.NextAvailableSequence().ToString(CultureInfo.InvariantCulture) : "";
+    }
+
+    private void AutoNumberCheck_Changed(object sender, RoutedEventArgs e)
+    {
+        if (NumberBox == null || _editId.HasValue) return;
+        var enabled = AutoNumberCheck.IsChecked == true;
+        NumberBox.IsReadOnly = enabled;
+        NumberBox.Text = enabled ? Database.NextAvailableSequence().ToString(CultureInfo.InvariantCulture) : "";
     }
 
     private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) { if (IsLoaded) RefreshRows(); }
@@ -88,6 +101,7 @@ public partial class MainWindow : Window
     {
         if ((sender as FrameworkElement)?.DataContext is not Person p) return;
         _editId = p.Id; NameBox.Text = p.FullName; NumberBox.Text = p.CardNumber;
+        AutoNumberCheck.IsEnabled = false; NumberBox.IsReadOnly = false;
         FormTitle.Text = "تعديل بيانات البطاقة"; SaveButton.Content = "حفظ التعديل";
         NameBox.Focus(); NameBox.SelectAll();
     }
