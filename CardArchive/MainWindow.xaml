@@ -95,9 +95,13 @@
        <DataGridTemplateColumn Header="اسم صاحب البطاقة" Width="*">
         <DataGridTemplateColumn.CellTemplate>
          <DataTemplate>
-          <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FlowDirection="RightToLeft">
-           <TextBlock Text="{Binding FullName}" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" FlowDirection="RightToLeft" FontWeight="SemiBold" Margin="8,0,16,0"/>
-          </Grid>
+          <TextBlock Text="{Binding FullName}"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Center"
+                     TextAlignment="Right"
+                     FlowDirection="RightToLeft"
+                     FontWeight="SemiBold"
+                     Margin="8,0,16,0"/>
          </DataTemplate>
         </DataGridTemplateColumn.CellTemplate>
        </DataGridTemplateColumn>
