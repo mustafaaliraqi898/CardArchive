@@ -6,7 +6,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>CardArchive</AssemblyName>
+    <ApplicationIcon>Assets\CardArchive.ico</ApplicationIcon>
     <RootNamespace>CardArchive</RootNamespace>
   </PropertyGroup>
-  <ItemGroup><PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" /></ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
+    <Resource Include="Assets\CardArchive.ico" />
+  </ItemGroup>
 </Project>
