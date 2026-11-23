@@ -1,0 +1,55 @@
+<Application x:Class="CardArchive.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StartupUri="MainWindow.xaml">
+  <Application.Resources>
+    <SolidColorBrush x:Key="Accent" Color="#2563EB"/>
+    <SolidColorBrush x:Key="AccentHover" Color="#1D4ED8"/>
+    <SolidColorBrush x:Key="PageBg" Color="#F3F6FB"/>
+    <SolidColorBrush x:Key="Surface" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextMain" Color="#17243A"/>
+    <SolidColorBrush x:Key="TextMuted" Color="#748198"/>
+    <SolidColorBrush x:Key="BorderLine" Color="#E5EAF2"/>
+    <Style TargetType="Button">
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Padding" Value="16,10"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Background" Value="{StaticResource Accent}"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="9" Padding="{TemplateBinding Padding}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Opacity" Value=".88"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter TargetName="bd" Property="Opacity" Value=".45"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#EEF3FB"/><Setter Property="Foreground" Value="#294568"/>
+    </Style>
+    <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#FFF0F0"/><Setter Property="Foreground" Value="#C03945"/><Setter Property="Padding" Value="11,7"/>
+    </Style>
+    <Style TargetType="TextBox">
+      <Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/>
+      <Setter Property="Padding" Value="12,10"/><Setter Property="BorderBrush" Value="#DCE3ED"/>
+      <Setter Property="BorderThickness" Value="1"/><Setter Property="Background" Value="#FBFCFE"/>
+      <Setter Property="Foreground" Value="#17243A"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="DataGrid">
+      <Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="14"/>
+      <Setter Property="Foreground" Value="#24334A"/><Setter Property="Background" Value="White"/>
+      <Setter Property="BorderThickness" Value="0"/><Setter Property="RowHeaderWidth" Value="0"/>
+      <Setter Property="GridLinesVisibility" Value="Horizontal"/><Setter Property="HorizontalGridLinesBrush" Value="#EEF1F6"/>
+      <Setter Property="HeadersVisibility" Value="Column"/><Setter Property="CanUserAddRows" Value="False"/>
+      <Setter Property="AutoGenerateColumns" Value="False"/><Setter Property="IsReadOnly" Value="True"/>
+      <Setter Property="RowHeight" Value="54"/><Setter Property="ColumnHeaderHeight" Value="48"/>
+      <Setter Property="AlternatingRowBackground" Value="#FAFBFD"/>
+      <Setter Property="SelectionMode" Value="Single"/><Setter Property="SelectionUnit" Value="FullRow"/>
+    </Style>
+    <Style TargetType="DataGridColumnHeader">
+      <Setter Property="Background" Value="#F5F7FB"/><Setter Property="Foreground" Value="#69778D"/>
+      <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Padding" Value="16,0"/>
+      <Setter Property="BorderThickness" Value="0,0,0,1"/><Setter Property="BorderBrush" Value="#E9EDF3"/>
+    </Style>
+    <Style TargetType="DataGridCell">
+      <Setter Property="Padding" Value="14,0"/><Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Style.Triggers><Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#EAF2FF"/><Setter Property="Foreground" Value="#173D79"/></Trigger></Style.Triggers>
+    </Style>
+  </Application.Resources>
+</Application>
