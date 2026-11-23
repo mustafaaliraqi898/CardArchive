@@ -14,7 +14,10 @@
      <TextBlock Text="فهرس البطاقات الوطنية" FontSize="28" FontWeight="Bold"/>
      <TextBlock Text="إدارة بيانات أصحاب البطاقات والبحث عنها بسهولة" FontSize="13" Foreground="{StaticResource TextMuted}" Margin="0,7,0,0"/>
     </StackPanel>
-    <Button x:Name="ThemeButton" Content="☾  الوضع الليلي" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ThemeButton_Click"/>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+     <Button Content="Aa  تنسيق الخط" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="FontSettingsButton_Click"/>
+     <Button x:Name="ThemeButton" Content="☾  الوضع الليلي" Style="{StaticResource SecondaryButton}" Click="ThemeButton_Click"/>
+    </StackPanel>
    </Grid>
    <Grid Grid.Row="1" Margin="0,0,0,18">
     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="235"/></Grid.ColumnDefinitions>
